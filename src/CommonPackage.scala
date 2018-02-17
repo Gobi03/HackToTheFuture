@@ -33,5 +33,13 @@ object CommonPackage {
 
     (res, maxH)
   }
+
+  def sumFieldScore(field: Array[Array[Int]]): Long = {
+    var res = 0L
+    for(y <- 0 until 100; x <- 0 until 100) {
+      res += field(y)(x)
+    }
+    res
+  }
 }
 

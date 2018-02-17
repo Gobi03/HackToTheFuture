@@ -39,7 +39,11 @@ object Main extends App {
           } {
             field(pos.y)(pos.x) -= score - dist
           }
-          solve(cnt+1, Answer(center, score) :: res)
+
+          if(sumFieldScore(field) < 0)
+            res.reverse
+          else
+            solve(cnt+1, Answer(center, score) :: res)
       }
     }
   }
