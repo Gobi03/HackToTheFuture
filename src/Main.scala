@@ -21,16 +21,19 @@ object Main extends App {
   
 
   /* main process */
-  val ansSeq: List[Answer] = solve(0, Nil)
+  val ansSeq: List[Answer] = solve(0, Nil, false)
 
-  def solve(cnt: Int, res: List[Answer]): List[Answer] = {
+  def solve(cnt: Int, res: List[Answer], flag: Boolean): List[Answer] = {
     if(cnt == 1000)
       res.reverse
     else {
       searchHighestPos(field) match {
         case (None, _) => res.reverse
         case (Some(center), high) =>
-          val score = min(100, high)
+          val score =
+            if(!flag) min(100, high)
+            else 1
+
           field(center.y)(center.x) -= score
           for {
             dist <- 1 to min(200, (score-1))
@@ -40,10 +43,10 @@ object Main extends App {
             field(pos.y)(pos.x) -= score - dist
           }
 
-          if(sumFieldScore(field) < 0)
-            res.reverse
+          if(!flag && sumFieldScore(field) < 0)
+            solve(cnt, res, true)
           else
-            solve(cnt+1, Answer(center, score) :: res)
+            solve(cnt+1, Answer(center, score) :: res, flag)
       }
     }
   }
