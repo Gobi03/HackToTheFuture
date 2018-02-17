@@ -37,9 +37,7 @@ object Main extends App {
             pos <- mkMastangSeqByDist(center, dist)
             if pos.inField
           } {
-            // println(s"pre: ${field(pos.y)(pos.x)}")
             field(pos.y)(pos.x) -= score - dist
-            // println(s"post: ${field(pos.y)(pos.x)}")
           }
           solve(cnt+1, Answer(center, score) :: res)
       }

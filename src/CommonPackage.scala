@@ -4,11 +4,12 @@ object CommonPackage {
   // @center からの mastang距離 @distance の座標一覧を返す
   def mkMastangSeqByDist(center: Pos, distance: Int): Seq[Pos] = {
     def mkPosSeq(x: Int, y: Int): Seq[Pos] = {
-      (x, y) match {
+      val vols = (x, y) match {
         case (0, _) => Seq(Pos(x, y), Pos(x, -y))
         case (_, 0) => Seq(Pos(x, y), Pos(-x, y))
         case _ => Seq(Pos(x, y), Pos(x, -y), Pos(-x, y), Pos(-x, -y))
       }
+      vols.map(_ + center)
     }
     
     for {
@@ -18,7 +19,6 @@ object CommonPackage {
     } yield pos
   }
 
-  // 
   def searchHighestPos(field: Array[Array[Int]]): (Option[Pos], Int) = {
     var res: Option[Pos] = None
     var maxH = 0
