@@ -24,24 +24,24 @@ object Main extends App {
   val ansSeq: List[Answer] = solve(0, Nil)
 
   def solve(cnt: Int, res: List[Answer]): List[Answer] = {
-    if(cnt == 100)
+    if(cnt == 1000)
       res.reverse
     else {
       searchHighestPos(field) match {
         case (None, _) => res.reverse
         case (Some(center), high) =>
-          
-          field(center.y)(center.x) -= high
+          val score = min(100, high)
+          field(center.y)(center.x) -= score
           for {
-            dist <- 1 to min(200, (high-1))
+            dist <- 1 to min(200, (score-1))
             pos <- mkMastangSeqByDist(center, dist)
             if pos.inField
           } {
             // println(s"pre: ${field(pos.y)(pos.x)}")
-            field(pos.y)(pos.x) -= high - dist
+            field(pos.y)(pos.x) -= score - dist
             // println(s"post: ${field(pos.y)(pos.x)}")
           }
-          solve(cnt+1, Answer(center, high) :: res)
+          solve(cnt+1, Answer(center, score) :: res)
       }
     }
   }
