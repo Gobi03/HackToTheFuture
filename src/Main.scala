@@ -37,7 +37,7 @@ object Main extends App {
           field(center.y)(center.x) -= score
           for {
             dist <- 1 to min(200, (score-1))
-            pos <- mkMastangSeqByDist(center, dist)
+            pos <- mkManhattanSeqByDist(center, dist)
             if pos.inField
           } {
             field(pos.y)(pos.x) -= score - dist

@@ -2,7 +2,7 @@ object CommonPackage {
   import Entities._
 
   // @center からの mastang距離 @distance の座標一覧を返す
-  def mkMastangSeqByDist(center: Pos, distance: Int): Seq[Pos] = {
+  def mkManhattanSeqByDist(center: Pos, distance: Int): Seq[Pos] = {
     def mkPosSeq(x: Int, y: Int): Seq[Pos] = {
       val vols = (x, y) match {
         case (0, _) => Seq(Pos(x, y), Pos(x, -y))
